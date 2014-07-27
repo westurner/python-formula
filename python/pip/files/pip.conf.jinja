@@ -1,0 +1,25 @@
+[global]
+{%- set index_url=salt['pillar.get']('python:pip:index_url', 'https://pypi.python.org/pypi') %}
+{%- set proxy=salt['pillar.get']('python:pip:proxy') %}
+{%- set allow_hosts=salt['pillar.get']('python:pip:allow_hosts') %}
+{%- set download_cache=salt['pillar.get']('python:pip:download_cache') %}
+{%- if index_url %}
+index-url = {{ index_url }}
+{%- else %}
+#index-url = https://pypi.python.org/pypi
+{%- endif %}
+{%- if proxy %}
+proxy = {{ proxy }}
+{%- else %}
+#proxy = http://pypi
+{%- endif %}
+{%- if allow_hosts %}
+allow_hosts = {{ allow_hosts }}
+{%- else %}
+#allow_hosts = pypi
+{%- endif %}
+{%- if download_cache %}
+download_cache = {{ download_cache }}
+{%- else %}
+download_cache = ~/.cache/pip
+{%- endif %}
