@@ -1,9 +1,42 @@
 
-{# TODO: s/template/salt_name/g #}
-{% set template = salt['grains.filter_by']({
-    'default': {
-        'pkg': 'template',
-        'service': 'template',
-        'config': '/etc/template.conf',
+{# TODO
+
+- /etc/skel/.pythonrc
+- PYTHONHASHSEED
+- Test on RedHat
+
+#}
+{% set python = salt['grains.filter_by']({
+    'Debian': {
+        'pkg': 'python',
+        'dev_pkgs': [
+            'libssl-dev',
+            'python-dev'
+        ],
     },
-}, merge=salt['pillar.get']('template:lookup')) %}
+    'RedHat': {
+        'pkg': 'python2.7',
+        'dev_pkgs': [
+            'openssl-devel',
+            'python-devel'
+        ],
+    }
+}, merge=salt['pillar.get']('python:lookup')) %}
+
+
+{% set python3 = salt['grains.filter_by']({
+    'Debian': {
+        'pkg': 'python3',
+        'dev_pkgs': [
+            'python3-dev',
+            'libssl-dev',
+        ],
+    },
+    'RedHat': {
+        'pkg': 'python3',
+        'dev_pkgs': [
+            'python3-devel',
+            'openssl-devel',
+        ],
+    }
+}, merge=salt['pillar.get']('python:lookup3')) %}
