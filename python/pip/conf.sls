@@ -16,11 +16,15 @@
 
 {% endfor %}
 #}
+
+{% from "users/map.jinja" import users %}
+{%- set root_user=users.get('root_user', 'root') %}
+{%- set root_group=users.get('root_group', 'root') %} 
 {% set userdirs=[
-('root', '/etc/skel'),
-('root', '/root'),
+(root_user, root_group, '/etc/skel'),
+(root_user, root_group, '/root'),
 ] %}
-{% for user, dir in userdirs %}
+{% for user, group, dir in userdirs %}
 {{ dir }}/.pip:
   file.directory:
     - user: {{ user }}

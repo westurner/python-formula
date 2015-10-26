@@ -13,6 +13,8 @@
             'libssl-dev',
             'python-dev'
         ],
+        'root_user': 'root',
+        'root_group': 'root',
     },
     'RedHat': {
         'pkg': 'python2.7',
@@ -20,6 +22,14 @@
             'openssl-devel',
             'python-devel'
         ],
+        'root_user': 'root',
+        'root_group': 'root',
+    },
+    'MacOS': {
+        'pkg': 'python',
+        'dev_pkgs': [],
+        'root_user': 'root',
+        'root_group': 'wheel',
     }
 }, merge=salt['pillar.get']('python:lookup')) %}
 
@@ -38,5 +48,8 @@
             'python3-devel',
             'openssl-devel',
         ],
+    },
+    'MacOS': {
+        'pkg': 'python3',
     }
 }, merge=salt['pillar.get']('python:lookup3')) %}
